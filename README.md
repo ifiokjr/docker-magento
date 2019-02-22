@@ -1,4 +1,4 @@
-<h1 align="center">markshust/docker-magento</h1> 
+<h1 align="center">markshust/docker-magento</h1>
 
 <div align="center">
   <p>Mark Shust's Docker Configuration for Magento</p>
@@ -11,12 +11,20 @@
 
 ## Table of contents
 
+- [Table of contents](#table-of-contents)
 - [Docker Hub](#docker-hub)
 - [Usage](#usage)
 - [Prerequisites](#prerequisites)
 - [Quick Setup](#quick-setup)
+  - [Automated Setup (New Project)](#automated-setup-new-project)
+  - [Manual Setup](#manual-setup)
 - [Custom CLI Commands](#custom-cli-commands)
 - [Misc Info](#misc-info)
+  - [Database](#database)
+  - [Composer Authentication](#composer-authentication)
+  - [Redis](#redis)
+  - [Xdebug & VS Code](#xdebug--vs-code)
+  - [Xdebug & PHPStorm](#xdebug--phpstorm)
 - [License](#license)
 
 ## Docker Hub
@@ -25,28 +33,28 @@ View Dockerfiles:
 
 - [markoshust/magento-nginx (Docker Hub)](https://hub.docker.com/r/markoshust/magento-nginx/)
   - 1.13
-      - [`latest`, `1.13`, `1.13-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.13)
-      - [`1.13-6`](https://github.com/markshust/docker-magento/tree/20.1.1/images/nginx/1.13)
-      - [`1.13-5`](https://github.com/markshust/docker-magento/tree/18.1.1/images/nginx/1.13)
-      - [`1.13-4`](https://github.com/markshust/docker-magento/tree/18.0.1/images/nginx/1.13)
-      - [`1.13-3`](https://github.com/markshust/docker-magento/tree/15.0.1/images/nginx/1.13)
-      - [`1.13-2`](https://github.com/markshust/docker-magento/tree/12.0.0/images/nginx/1.13)
-      - [`1.13-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/nginx/1.13)
-      - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
+    - [`latest`, `1.13`, `1.13-7`](https://github.com/markshust/docker-magento/tree/master/images/nginx/1.13)
+    - [`1.13-6`](https://github.com/markshust/docker-magento/tree/20.1.1/images/nginx/1.13)
+    - [`1.13-5`](https://github.com/markshust/docker-magento/tree/18.1.1/images/nginx/1.13)
+    - [`1.13-4`](https://github.com/markshust/docker-magento/tree/18.0.1/images/nginx/1.13)
+    - [`1.13-3`](https://github.com/markshust/docker-magento/tree/15.0.1/images/nginx/1.13)
+    - [`1.13-2`](https://github.com/markshust/docker-magento/tree/12.0.0/images/nginx/1.13)
+    - [`1.13-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/nginx/1.13)
+    - [`1.13-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/nginx/1.13)
 - [markoshust/magento-php (Docker Hub)](https://hub.docker.com/r/markoshust/magento-php/)
   - 7.2
-      - [`latest`, `7.2-fpm`, `7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
+    - [`latest`, `7.2-fpm`, `7.2-fpm-0`](https://github.com/markshust/docker-magento/tree/master/images/php/7.2)
   - 7.1
-      - [`7.1-fpm`, `7.1-fpm-9`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
-      - [`7.1-fpm-8`](https://github.com/markshust/docker-magento/tree/17.0.1/images/php/7.1)
-      - [`7.1-fpm-7`](https://github.com/markshust/docker-magento/tree/16.2.0/images/php/7.1)
-      - [`7.1-fpm-6`](https://github.com/markshust/docker-magento/tree/16.0.0/images/php/7.1)
-      - [`7.1-fpm-5`](https://github.com/markshust/docker-magento/tree/15.0.1/images/php/7.1)
-      - [`7.1-fpm-4`](https://github.com/markshust/docker-magento/tree/15.0.0/images/php/7.1)
-      - [`7.1-fpm-3`](https://github.com/markshust/docker-magento/tree/14.0.1/images/php/7.1)
-      - [`7.1-fpm-2`](https://github.com/markshust/docker-magento/tree/13.0.0/images/php/7.1)
-      - [`7.1-fpm-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/php/7.1)
-      - [`7.1-fpm-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/php/7.1)
+    - [`7.1-fpm`, `7.1-fpm-9`](https://github.com/markshust/docker-magento/tree/master/images/php/7.1)
+    - [`7.1-fpm-8`](https://github.com/markshust/docker-magento/tree/17.0.1/images/php/7.1)
+    - [`7.1-fpm-7`](https://github.com/markshust/docker-magento/tree/16.2.0/images/php/7.1)
+    - [`7.1-fpm-6`](https://github.com/markshust/docker-magento/tree/16.0.0/images/php/7.1)
+    - [`7.1-fpm-5`](https://github.com/markshust/docker-magento/tree/15.0.1/images/php/7.1)
+    - [`7.1-fpm-4`](https://github.com/markshust/docker-magento/tree/15.0.0/images/php/7.1)
+    - [`7.1-fpm-3`](https://github.com/markshust/docker-magento/tree/14.0.1/images/php/7.1)
+    - [`7.1-fpm-2`](https://github.com/markshust/docker-magento/tree/13.0.0/images/php/7.1)
+    - [`7.1-fpm-1`](https://github.com/markshust/docker-magento/tree/11.1.5/images/php/7.1)
+    - [`7.1-fpm-0`](https://github.com/markshust/docker-magento/tree/11.0.0/images/php/7.1)
 
 ## Usage
 
@@ -76,7 +84,7 @@ This configuration has been tested on Mac & Linux.
 Run this automated one-liner from the directory you want to install your project to:
 
 ```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.0
+curl -s https://raw.githubusercontent.com/ifiokjr/docker-magento/temp-fix/lib/onelinesetup | bash -s -- magento2.test 2.3.0
 ```
 
 The `magento2.test` above defines the hostname to use, and the `2.3.0` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
@@ -89,7 +97,7 @@ Same result as the one-liner above. Just replace `magento2.test` references with
 
 ```bash
 # Quick setup for a new instance of Magento 2:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash -s -- magento-2
+curl -s https://raw.githubusercontent.com/ifiokjr/docker-magento/temp-fix/lib/template | bash -s -- magento-2
 
 # New projects can easily download by version:
 bin/download 2.3.0
@@ -193,30 +201,32 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
-    * `CLI Interpreter`
-        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
-        * Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
+    - `CLI Interpreter`
 
-    * `Path mappings`
-        * Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
+      - Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
+      - Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
 
-    * `Docker container`
-        * Remove any pre-existing volume bindings.
-        * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
+    - `Path mappings`
 
-4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
+      - Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
 
-5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
+    - `Docker container`
+      - Remove any pre-existing volume bindings.
+      - Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
 
-6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
+4.  Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001`.
 
-    * Set Name and Host to your domain name (ex. `magento2.test`)
-    * Keep port set to `80`
-    * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+5.  Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
 
-7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+6.  Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
 
-8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+    - Set Name and Host to your domain name (ex. `magento2.test`)
+    - Keep port set to `80`
+    - Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+
+7.  Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento2.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+
+8.  Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento2.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
 ## License
 
